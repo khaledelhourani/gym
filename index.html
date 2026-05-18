@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>نظام الـ 6 تمارين – كمال أجسام</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d;--bg-card:#161616;--bg-card2:#1a1a1a;
+  --gold:#D4AF37;--gold-light:#FFD700;--gold-dim:rgba(212,175,55,.12);
+  --gold-border:rgba(212,175,55,.28);--white:#fff;--gray:#A0A0A0;
+  --gray-dim:#444;--r:16px;--rs:10px;
+  --transition:.22s cubic-bezier(.4,0,.2,1)
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Cairo',sans-serif;direction:rtl;line-height:1.65;min-height:100vh}
+
+/* ── PAGE ── */
+.page{max-width:1240px;margin:0 auto;padding:52px 28px 70px}
+
+/* ── HEADER ── */
+.header{text-align:center;margin-bottom:56px;position:relative;padding-bottom:36px}
+.header::after{content:'';display:block;width:220px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto 0}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-dim);border:1px solid var(--gold-border);color:var(--gold);font-size:.72rem;font-weight:700;letter-spacing:.14em;padding:6px 20px;border-radius:40px;margin-bottom:20px}
+.header h1{font-weight:900;font-size:clamp(1.8rem,5vw,2.8rem);background:linear-gradient(135deg,var(--gold-light),var(--gold),#b8962e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.header-sub{color:var(--gray);font-size:.9rem}
+.tip-bar{display:inline-flex;align-items:center;gap:8px;margin-top:18px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.15);border-radius:40px;padding:7px 18px;font-size:.75rem;color:var(--gold);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* ── GRID ── */
+.days-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:22px}
+.bottom-row{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:calc(66.666% + 11px);margin:0 auto 36px}
+
+/* ── DAY CARD ── */
+.day-card{background:var(--bg-card);border:1px solid var(--gold-border);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;position:relative}
+.day-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1}
+.day-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(212,175,55,.06),transparent 60%);pointer-events:none}
+
+/* ── CARD HEADER ── */
+.card-header{padding:18px 20px 15px;border-bottom:1px solid rgba(212,175,55,.15);display:flex;align-items:center;gap:13px}
+.day-num{width:40px;height:40px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.95rem;color:#0d0d0d;box-shadow:0 0 16px rgba(212,175,55,.35)}
+.card-day-label{font-size:.63rem;color:var(--gold);font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:1px}
+.card-title{font-weight:800;font-size:1rem;color:var(--white);line-height:1.2}
+.card-title span{display:block;font-size:.73rem;color:var(--gray);font-weight:400}
+
+/* ── EXERCISE LIST ── */
+.exercise-list{padding:14px 15px 18px;display:flex;flex-direction:column;gap:9px;flex:1}
+
+/* ── EXERCISE ITEM (clickable) ── */
+.ex-item{background:var(--bg-card2);border:1px solid rgba(255,255,255,.045);border-radius:var(--rs);display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 13px;cursor:pointer;text-decoration:none;color:inherit;position:relative;overflow:hidden;transition:border-color var(--transition),transform var(--transition),background var(--transition)}
+.ex-item::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(212,175,55,.04),transparent);opacity:0;transition:opacity var(--transition)}
+.ex-item:hover{border-color:var(--gold-border);background:#1f1e18;transform:translateY(-1px)}
+.ex-item:hover::before{opacity:1}
+.ex-item:active{transform:translateY(0) scale(.99)}
+
+/* left side */
+.ex-left{}
+.ex-num-row{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.ex-num{width:20px;height:20px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-border);color:var(--gold-light);font-weight:700;font-size:.62rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ex-en{color:var(--gold);font-weight:700;font-size:.8rem;line-height:1.3}
+.ex-ar{font-size:.68rem;color:var(--gray);margin-bottom:5px;line-height:1.4}
+.pills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:3px;background:rgba(212,175,55,.09);border:1px solid rgba(212,175,55,.2);border-radius:30px;padding:2px 8px;font-size:.61rem;color:var(--gold-light);font-weight:600}
+.dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* right side – YouTube button */
+.yt-btn{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:8px 10px;border-radius:8px;background:rgba(255,0,0,.08);border:1px solid rgba(255,0,0,.2);transition:background var(--transition),border-color var(--transition),transform var(--transition)}
+.ex-item:hover .yt-btn{background:rgba(255,0,0,.18);border-color:rgba(255,0,0,.5)}
+.yt-btn svg{width:26px;height:26px}
+.yt-label{font-size:.55rem;color:#ff6b6b;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+
+/* ── FOOTER ── */
+.footer-note{border:1px solid var(--gold-border);border-radius:var(--r);background:var(--gold-dim);padding:18px 22px;display:flex;align-items:flex-start;gap:13px;margin-top:4px}
+.footer-icon{font-size:1.3rem;flex-shrink:0}
+.footer-text{font-size:.82rem;color:var(--gray);line-height:1.75}
+.footer-text strong{color:var(--gold-light);font-weight:700}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold-border),transparent);margin:30px 0}
+.brand{text-align:center;color:var(--gray-dim);font-size:.68rem;letter-spacing:.08em;padding-top:14px}
+.brand span{color:var(--gold)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid var(--gold-border);color:var(--gold-light);padding:11px 22px;border-radius:40px;font-size:.8rem;font-family:'Cairo',sans-serif;z-index:999;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .35s;opacity:0;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media(max-width:1000px){
+  .days-grid{grid-template-columns:repeat(2,1fr)}
+  .bottom-row{grid-template-columns:repeat(2,1fr);max-width:100%}
+}
+@media(max-width:640px){
+  .page{padding:28px 14px 50px}
+  .days-grid{grid-template-columns:1fr}
+  .bottom-row{grid-template-columns:1fr;max-width:100%}
+  .header h1{font-size:1.7rem}
+  .ex-en{font-size:.75rem}
+  .yt-btn{padding:7px 8px}
+  .yt-btn svg{width:22px;height:22px}
+  .yt-label{display:none}
+}
+@media(max-width:400px){
+  .ex-item{grid-template-columns:1fr 38px}
+}
+
+/* ── PRINT ── */
+@media print{
+  body{background:#0d0d0d!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{padding:16px 18px 28px}
+  .days-grid{gap:12px}.bottom-row{gap:12px}
+  .day-card{break-inside:avoid}
+  .tip-bar,.toast{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div class="hbadge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 4v6a6 6 0 0012 0V4"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+    Bodybuilding System · 5 Days / Week · 6 Exercises / Day
+  </div>
+  <h1>نظام الـ 6 تمارين</h1>
+  <p class="header-sub">5 أيام في الأسبوع — برنامج كمال أجسام احترافي متكامل</p>
+  <div class="tip-bar">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    اضغط على أي تمرين لمشاهدة شرح الفيديو على YouTube
+  </div>
+</div>
+
+<!-- ══ DAY 1 – 3 ══ -->
+<div class="days-grid">
+
+<!-- DAY 1: CHEST -->
+<div class="day-card">
+  <div class="card-header">
+    <div class="day-num">١</div>
+    <div><div class="card-day-label">اليوم الأول</div><div class="card-title">الصدر <span>Chest Day</span></div></div>
+  </div>
+  <div class="exercise-list">
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Incline+Barbell+Bench+Press+tutorial" target="_blank" rel="noopener" onclick="showToast('Incline Barbell Bench Press')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">1</div><div class="ex-en">Incline Barbell Bench Press</div></div>
+        <div class="ex-ar">بنش مائل بالبار لعلو الصدر</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>8–10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Flat+Dumbbell+Bench+Press+tutorial" target="_blank" rel="noopener" onclick="showToast('Flat Dumbbell Bench Press')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">2</div><div class="ex-en">Flat Dumbbell Bench Press</div></div>
+        <div class="ex-ar">بنش مستوي بالدمبل للصدر كامل</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Decline+Dumbbell+Press+tutorial" target="_blank" rel="noopener" onclick="showToast('Decline Dumbbell Press')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">3</div><div class="ex-en">Decline Dumbbell Press</div></div>
+        <div class="ex-ar">بنش مقلوب لأسفل الصدر</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Chest+Fly+Machine+tutorial" target="_blank" rel="noopener" onclick="showToast('Chest Fly Machine')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">4</div><div class="ex-en">Chest Fly Machine</div></div>
+        <div class="ex-ar">تجميع فراشة لجسر الصدر</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Cable+Crossover+chest+tutorial" target="_blank" rel="noopener" onclick="showToast('Cable Crossover')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">5</div><div class="ex-en">Cable Crossover</div></div>
+        <div class="ex-ar">تجميع كابل للخط الوسطي</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12–15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Chest+Dips+tutorial+form" target="_blank" rel="noopener" onclick="showToast('Dips')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">6</div><div class="ex-en">Dips</div></div>
+        <div class="ex-ar">متوازي لأسفل الصدر والأكتاف</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>أقصى تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+  </div>
+</div>
+
+<!-- DAY 2: BACK -->
+<div class="day-card">
+  <div class="card-header">
+    <div class="day-num">٢</div>
+    <div><div class="card-day-label">اليوم الثاني</div><div class="card-title">الظهر <span>Back Day</span></div></div>
+  </div>
+  <div class="exercise-list">
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Pull+Ups+proper+form+tutorial" target="_blank" rel="noopener" onclick="showToast('Pull-Ups')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">1</div><div class="ex-en">Pull-Ups</div></div>
+        <div class="ex-ar">عُقلة لتوسيع الظهر</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>أقصى تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Lat+Pulldown+tutorial+form" target="_blank" rel="noopener" onclick="showToast('Lat Pulldown')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">2</div><div class="ex-en">Lat Pulldown</div></div>
+        <div class="ex-ar">سحب عالي واسع لشكل V</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>10–12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Barbell+Row+tutorial+back" target="_blank" rel="noopener" onclick="showToast('Barbell Row')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">3</div><div class="ex-en">Barbell Row</div></div>
+        <div class="ex-ar">سحب بار حر لسمك الظهر</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>8–10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Seated+Cable+Row+tutorial" target="_blank" rel="noopener" onclick="showToast('Seated Cable Row')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">4</div><div class="ex-en">Seated Cable Row</div></div>
+        <div class="ex-ar">سحب أرضي ضيق لوسط الظهر</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Dumbbell+Row+tutorial+back" target="_blank" rel="noopener" onclick="showToast('Dumbbell Row')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">5</div><div class="ex-en">Dumbbell Row</div></div>
+        <div class="ex-ar">منشار بالدمبل — 10 تكرار لكل ذراع</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>10 × ذراع</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Hyperextension+lower+back+tutorial" target="_blank" rel="noopener" onclick="showToast('Hyperextension')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">6</div><div class="ex-en">Hyperextension</div></div>
+        <div class="ex-ar">قطنية أسفل الظهر لتقوية الجذع</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+  </div>
+</div>
+
+<!-- DAY 3: LEGS -->
+<div class="day-card">
+  <div class="card-header">
+    <div class="day-num">٣</div>
+    <div><div class="card-day-label">اليوم الثالث</div><div class="card-title">الرجلين <span>Legs Day</span></div></div>
+  </div>
+  <div class="exercise-list">
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Barbell+Squat+tutorial+form" target="_blank" rel="noopener" onclick="showToast('Barbell Squats')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">1</div><div class="ex-en">Barbell Squats</div></div>
+        <div class="ex-ar">سكوات بار حر لعضلات الفخذ كاملة</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>8–10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Leg+Press+machine+tutorial" target="_blank" rel="noopener" onclick="showToast('Leg Press')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">2</div><div class="ex-en">Leg Press</div></div>
+        <div class="ex-ar">دفع رجلين على الجهاز لزيادة الحجم</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Leg+Extension+machine+tutorial" target="_blank" rel="noopener" onclick="showToast('Leg Extensions')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">3</div><div class="ex-en">Leg Extensions</div></div>
+        <div class="ex-ar">أماميات جهاز لعزل الفخذ الأمامي</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Lying+Leg+Curl+tutorial+hamstrings" target="_blank" rel="noopener" onclick="showToast('Lying Leg Curls')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">4</div><div class="ex-en">Lying Leg Curls</div></div>
+        <div class="ex-ar">خلفيات جهاز لتقوية الفخذ الخلفي</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Seated+Calf+Raise+tutorial" target="_blank" rel="noopener" onclick="showToast('Seated Calf Raises')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">5</div><div class="ex-en">Seated Calf Raises</div></div>
+        <div class="ex-ar">بطات / سمانة جالس</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Standing+Calf+Raise+tutorial+calves" target="_blank" rel="noopener" onclick="showToast('Standing Calf Raises')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">6</div><div class="ex-en">Standing Calf Raises</div></div>
+        <div class="ex-ar">بطات / سمانة واقف</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+  </div>
+</div>
+</div><!-- /.days-grid -->
+
+<!-- ══ DAY 4 – 5 ══ -->
+<div class="bottom-row">
+
+<!-- DAY 4: SHOULDERS -->
+<div class="day-card">
+  <div class="card-header">
+    <div class="day-num">٤</div>
+    <div><div class="card-day-label">اليوم الرابع</div><div class="card-title">الكتف والتربيس <span>Shoulders & Traps</span></div></div>
+  </div>
+  <div class="exercise-list">
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Overhead+Dumbbell+Press+seated+tutorial" target="_blank" rel="noopener" onclick="showToast('Overhead Dumbbell Press')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">1</div><div class="ex-en">Overhead Dumbbell Press</div></div>
+        <div class="ex-ar">ضغط كتف بالدمبل جالس للكتف الأمامي</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>8–10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Barbell+Military+Press+overhead+tutorial" target="_blank" rel="noopener" onclick="showToast('Barbell Military Press')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">2</div><div class="ex-en">Barbell Military Press</div></div>
+        <div class="ex-ar">ضغط كتف بالبار واقف للقوة البدنية</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Dumbbell+Lateral+Raises+shoulder+tutorial" target="_blank" rel="noopener" onclick="showToast('Dumbbell Lateral Raises')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">3</div><div class="ex-en">Dumbbell Lateral Raises</div></div>
+        <div class="ex-ar">رفرفة جانبي لتعريض الكتف</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>12–15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Face+Pulls+cable+rear+delt+tutorial" target="_blank" rel="noopener" onclick="showToast('Face Pulls')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">4</div><div class="ex-en">Face Pulls</div></div>
+        <div class="ex-ar">كابل للخلفيات لإعطاء تدويرة للكتف</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>15 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Dumbbell+Shrugs+traps+tutorial" target="_blank" rel="noopener" onclick="showToast('Dumbbell Shrugs')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">5</div><div class="ex-en">Dumbbell Shrugs</div></div>
+        <div class="ex-ar">هز أكتاف بالدمبل للتربيس العلوية</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Barbell+Shrugs+traps+tutorial" target="_blank" rel="noopener" onclick="showToast('Barbell Shrugs')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">6</div><div class="ex-en">Barbell Shrugs</div></div>
+        <div class="ex-ar">هز أكتاف بالبار للتربيس</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+  </div>
+</div>
+
+<!-- DAY 5: ARMS -->
+<div class="day-card">
+  <div class="card-header">
+    <div class="day-num">٥</div>
+    <div><div class="card-day-label">اليوم الخامس</div><div class="card-title">الذراعين <span>Biceps & Triceps</span></div></div>
+  </div>
+  <div class="exercise-list">
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Barbell+Bicep+Curl+tutorial+form" target="_blank" rel="noopener" onclick="showToast('Barbell Bicep Curl')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">1</div><div class="ex-en">Barbell Bicep Curl</div></div>
+        <div class="ex-ar">باي بالبار المستقيمة للحجم الأساسي</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Triceps+Rope+Pushdown+cable+tutorial" target="_blank" rel="noopener" onclick="showToast('Triceps Pushdown Rope')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">2</div><div class="ex-en">Triceps Pushdown (Rope)</div></div>
+        <div class="ex-ar">تراي كابل حبل لعزل التراي</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Dumbbell+Hammer+Curl+tutorial+bicep" target="_blank" rel="noopener" onclick="showToast('Dumbbell Hammer Curl')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">3</div><div class="ex-en">Dumbbell Hammer Curl</div></div>
+        <div class="ex-ar">باي شاكوش لتعريض الذراع والساعد</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Skull+Crushers+EZ+bar+triceps+tutorial" target="_blank" rel="noopener" onclick="showToast('Skull Crushers')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">4</div><div class="ex-en">Skull Crushers</div></div>
+        <div class="ex-ar">تراي بالبار الزقزاق للرأس الطويل</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>4 جولات</span><span class="pill"><span class="dot"></span>10 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Preacher+Curl+bicep+tutorial" target="_blank" rel="noopener" onclick="showToast('Preacher Curl')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">5</div><div class="ex-en">Preacher Curl</div></div>
+        <div class="ex-ar">باي على دكة العزل / لاري</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+    <a class="ex-item" href="https://www.youtube.com/results?search_query=Overhead+Dumbbell+Triceps+Extension+tutorial" target="_blank" rel="noopener" onclick="showToast('Overhead DB Triceps Extension')">
+      <div class="ex-left">
+        <div class="ex-num-row"><div class="ex-num">6</div><div class="ex-en">Overhead DB Triceps Extension</div></div>
+        <div class="ex-ar">تراي بالدمبل خلف الرأس يدين</div>
+        <div class="pills"><span class="pill"><span class="dot"></span>3 جولات</span><span class="pill"><span class="dot"></span>12 تكرار</span></div>
+      </div>
+      <div class="yt-btn">YT_ICON<div class="yt-label">شاهد</div></div>
+    </a>
+
+  </div>
+</div>
+
+</div><!-- /.bottom-row -->
+
+<div class="divider"></div>
+
+<div class="footer-note">
+  <div class="footer-icon">💡</div>
+  <div class="footer-text">
+    <strong>ملاحظات هامة:</strong> ابدأ كل جلسة بـ <strong>5–10 دقائق إحماء</strong> خفيف واحرص على الإطالة بعد الانتهاء.
+    الراحة بين الجولات: <strong>60–90 ثانية</strong> للتمارين الصغيرة، و<strong>2–3 دقائق</strong> للتمارين المركبة الثقيلة.
+    اختر وزناً يُتيح لك إتمام التكرارات بشكل صحيح مع الشعور بالإرهاق في آخر تكرارَين.
+    النوم الكافي والتغذية السليمة هما الركيزة الأساسية للنمو العضلي.
+  </div>
+</div>
+
+<div class="brand"><span>◆</span> نظام كمال أجسام احترافي · 5 أيام / الأسبوع · 6 تمارين / اليوم <span>◆</span></div>
+
+</div><!-- /.page -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Replace YT_ICON placeholder with real SVG ──
+document.querySelectorAll('.yt-btn').forEach(btn => {
+  btn.innerHTML = btn.innerHTML.replace('YT_ICON',
+    `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="24" height="24" rx="5" fill="#FF0000"/>
+      <path d="M9.5 7.5l7 4.5-7 4.5V7.5z" fill="white"/>
+    </svg>`
+  );
+});
+
+// ── Toast ──
+let toastTimer;
+function showToast(name) {
+  const t = document.getElementById('toast');
+  t.textContent = '▶ جارٍ فتح شرح: ' + name;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+
+</body>
+</html>

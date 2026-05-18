@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>نظام الـ 6 تمارين – كمال أجسام</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Reset & Base ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #0d0d0d;
+    --bg-card:     #161616;
+    --bg-card2:    #1c1c1c;
+    --gold:        #D4AF37;
+    --gold-light:  #FFD700;
+    --gold-dim:    rgba(212,175,55,.15);
+    --gold-border: rgba(212,175,55,.35);
+    --white:       #FFFFFF;
+    --gray:        #A0A0A0;
+    --gray-dim:    #5a5a5a;
+    --accent-red:  #C0392B;
+    --radius:      14px;
+    --radius-sm:   8px;
+  }
+
+  html { font-size: 15px; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  /* ─── Page Layout ───────────────────────────────────────── */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 36px 60px;
+  }
+
+  /* ─── Header ────────────────────────────────────────────── */
+  .header {
+    text-align: center;
+    margin-bottom: 52px;
+    position: relative;
+    padding-bottom: 36px;
+  }
+
+  .header::after {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto 0;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 40px;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 2.6rem;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, #b8962e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .header-sub {
+    color: var(--gray);
+    font-size: .95rem;
+    font-weight: 400;
+  }
+
+  /* ─── Grid ───────────────────────────────────────────────── */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  /* Last row: 2 cards centred */
+  .days-grid .day-card:nth-child(4),
+  .days-grid .day-card:nth-child(5) {
+    /* handled via wrapper below */
+  }
+
+  .bottom-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: calc(66.666% + 12px);   /* 2 of 3 columns */
+    margin: 0 auto 36px;
+  }
+
+  /* ─── Day Card ───────────────────────────────────────────── */
+  .day-card {
+    background: var(--bg-card);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .day-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(212,175,55,.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Card top accent line */
+  .day-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* ─── Card Header ─────────────────────────────────────────── */
+  .card-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid rgba(212,175,55,.18);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .day-number {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: #0d0d0d;
+    box-shadow: 0 0 18px rgba(212,175,55,.4);
+  }
+
+  .card-title-group { flex: 1; }
+
+  .card-day-label {
+    font-size: .7rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .card-title span {
+    display: block;
+    font-size: .8rem;
+    color: var(--gray);
+    font-weight: 400;
+  }
+
+  /* ─── Exercise List ──────────────────────────────────────── */
+  .exercise-list {
+    padding: 18px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .exercise-item {
+    background: var(--bg-card2);
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    align-items: start;
+    position: relative;
+    transition: border-color .2s;
+  }
+
+  .exercise-item:hover {
+    border-color: var(--gold-border);
+  }
+
+  .exercise-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .exercise-body {}
+
+  .exercise-name {
+    font-weight: 700;
+    font-size: .9rem;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .exercise-name .en {
+    display: inline-block;
+    color: var(--gold);
+    font-size: .8rem;
+    font-weight: 600;
+    margin-left: 4px;
+  }
+
+  .exercise-sets {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(212,175,55,.1);
+    border: 1px solid rgba(212,175,55,.25);
+    border-radius: 40px;
+    padding: 2px 10px;
+    font-size: .72rem;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  .pill-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .exercise-desc {
+    font-size: .72rem;
+    color: var(--gray);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ─── Footer Note ────────────────────────────────────────── */
+  .footer-note {
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius);
+    background: var(--gold-dim);
+    padding: 18px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 8px;
+  }
+
+  .footer-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .footer-text {
+    font-size: .85rem;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  .footer-text strong {
+    color: var(--gold-light);
+    font-weight: 700;
+  }
+
+  /* ─── Gold Divider ───────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+    margin: 32px 0;
+  }
+
+  /* ─── Branding Footer ─────────────────────────────────────── */
+  .brand-footer {
+    text-align: center;
+    padding-top: 24px;
+    color: var(--gray-dim);
+    font-size: .72rem;
+    letter-spacing: .08em;
+  }
+
+  .brand-footer span {
+    color: var(--gold);
+  }
+
+  /* ─── Print Styles ────────────────────────────────────────── */
+  @media print {
+    body { background: #0d0d0d !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { padding: 20px 24px 30px; }
+    .days-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .bottom-row { gap: 14px; }
+    .day-card { break-inside: avoid; page-break-inside: avoid; }
+    .header h1 { font-size: 2rem; }
+    .exercise-item { padding: 8px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HEADER ══════════════════════════════════════════════ -->
+  <div class="header">
+    <div class="header-badge">Bodybuilding System • 5 Days / Week</div>
+    <h1>نظام الـ 6 تمارين</h1>
+    <p class="header-sub">5 أيام في الأسبوع — برنامج كمال أجسام احترافي متكامل</p>
+  </div>
+
+  <!-- ══ TOP 3 DAYS ═══════════════════════════════════════════ -->
+  <div class="days-grid">
+
+    <!-- DAY 1 – CHEST -->
+    <div class="day-card">
+      <div class="card-header">
+        <div class="day-number">١</div>
+        <div class="card-title-group">
+          <div class="card-day-label">اليوم الأول</div>
+          <div class="card-title">الصدر <span>Chest</span></div>
+        </div>
+      </div>
+      <div class="exercise-list">
+
+        <div class="exercise-item">
+          <div class="exercise-num">1</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Incline Barbell Bench Press</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>8–10 تكرار</span>
+            </div>
+            <div class="exercise-desc">بنش مائل بالبار لعلو الصدر</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">2</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Flat Dumbbell Bench Press</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10 تكرار</span>
+            </div>
+            <div class="exercise-desc">بنش مستوي بالدمبل للصدر كامل</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">3</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Decline Dumbbell Press</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10 تكرار</span>
+            </div>
+            <div class="exercise-desc">بنش مقلوب لأسفل الصدر</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">4</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Chest Fly Machine</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">تجميع فراشة لجسر الصدر</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">5</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Cable Crossover</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12–15 تكرار</span>
+            </div>
+            <div class="exercise-desc">تجميع كابل للخط الوسطي</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">6</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Dips</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>أقصى تكرار</span>
+            </div>
+            <div class="exercise-desc">متوازي لأسفل الصدر والأكتاف</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DAY 2 – BACK -->
+    <div class="day-card">
+      <div class="card-header">
+        <div class="day-number">٢</div>
+        <div class="card-title-group">
+          <div class="card-day-label">اليوم الثاني</div>
+          <div class="card-title">الظهر <span>Back</span></div>
+        </div>
+      </div>
+      <div class="exercise-list">
+
+        <div class="exercise-item">
+          <div class="exercise-num">1</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Pull-Ups</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>أقصى تكرار</span>
+            </div>
+            <div class="exercise-desc">عُقلة لتوسيع الظهر</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">2</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Lat Pulldown</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10–12 تكرار</span>
+            </div>
+            <div class="exercise-desc">سحب عالي واسع لشكل V</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">3</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Barbell Row</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>8–10 تكرار</span>
+            </div>
+            <div class="exercise-desc">سحب بار حر لسمك الظهر</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">4</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Seated Cable Row</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">سحب أرضي ضيق لوسط الظهر</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">5</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Dumbbell Row</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10 تكرار × ذراع</span>
+            </div>
+            <div class="exercise-desc">منشار بالدمبل</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">6</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Hyperextension</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>15 تكرار</span>
+            </div>
+            <div class="exercise-desc">قطنية أسفل الظهر لتقوية الجذع</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DAY 3 – LEGS -->
+    <div class="day-card">
+      <div class="card-header">
+        <div class="day-number">٣</div>
+        <div class="card-title-group">
+          <div class="card-day-label">اليوم الثالث</div>
+          <div class="card-title">الرجلين <span>Legs</span></div>
+        </div>
+      </div>
+      <div class="exercise-list">
+
+        <div class="exercise-item">
+          <div class="exercise-num">1</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Barbell Squats</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>8–10 تكرار</span>
+            </div>
+            <div class="exercise-desc">سكوات بار حر لعضلات الفخذ كاملة</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">2</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Leg Press</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">دفع رجلين على الجهاز لزيادة الحجم</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">3</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Leg Extensions</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>15 تكرار</span>
+            </div>
+            <div class="exercise-desc">أماميات جهاز لعزل الفخذ الأمامي</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">4</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Lying Leg Curls</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">خلفيات جهاز لتقوية الفخذ الخلفي</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">5</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Seated Calf Raises</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>15 تكرار</span>
+            </div>
+            <div class="exercise-desc">بطات / سمانة جالس</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">6</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Standing Calf Raises</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>15 تكرار</span>
+            </div>
+            <div class="exercise-desc">بطات / سمانة واقف</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /.days-grid -->
+
+  <!-- ══ BOTTOM 2 DAYS ════════════════════════════════════════ -->
+  <div class="bottom-row">
+
+    <!-- DAY 4 – SHOULDERS & TRAPS -->
+    <div class="day-card">
+      <div class="card-header">
+        <div class="day-number">٤</div>
+        <div class="card-title-group">
+          <div class="card-day-label">اليوم الرابع</div>
+          <div class="card-title">الكتف والتربيس <span>Shoulders & Traps</span></div>
+        </div>
+      </div>
+      <div class="exercise-list">
+
+        <div class="exercise-item">
+          <div class="exercise-num">1</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Overhead Dumbbell Press</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>8–10 تكرار</span>
+            </div>
+            <div class="exercise-desc">ضغط كتف بالدمبل جالس للكتف الأمامي</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">2</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Barbell Military Press</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10 تكرار</span>
+            </div>
+            <div class="exercise-desc">ضغط كتف بالبار واقف للقوة البدنية</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">3</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Dumbbell Lateral Raises</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12–15 تكرار</span>
+            </div>
+            <div class="exercise-desc">رفرفة جانبي لتعريض الكتف</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">4</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Face Pulls</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>15 تكرار</span>
+            </div>
+            <div class="exercise-desc">كابل للخلفيات لإعطاء تدويرة للكتف</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">5</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Dumbbell Shrugs</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">هز أكتاف بالدمبل للتربيس العلوية</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">6</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Barbell Shrugs</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">هز أكتاف بالبار للتربيس (من الأمام أو الخلف)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DAY 5 – ARMS -->
+    <div class="day-card">
+      <div class="card-header">
+        <div class="day-number">٥</div>
+        <div class="card-title-group">
+          <div class="card-day-label">اليوم الخامس</div>
+          <div class="card-title">الذراعين <span>Biceps & Triceps</span></div>
+        </div>
+      </div>
+      <div class="exercise-list">
+
+        <div class="exercise-item">
+          <div class="exercise-num">1</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Barbell Bicep Curl</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10 تكرار</span>
+            </div>
+            <div class="exercise-desc">باي بالبار المستقيمة للحجم الأساسي</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">2</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Triceps Pushdown (Rope)</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">تراي كابل حبل لعزل التراي</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">3</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Dumbbell Hammer Curl</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">باي شاكوش لتعريض الذراع والساعد</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">4</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Skull Crushers</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>4 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>10 تكرار</span>
+            </div>
+            <div class="exercise-desc">تراي بالبار الزقزاق مستلقي للرأس الطويل</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">5</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Preacher Curl</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">باي على دكة العزل / لاري</div>
+          </div>
+        </div>
+
+        <div class="exercise-item">
+          <div class="exercise-num">6</div>
+          <div class="exercise-body">
+            <div class="exercise-name"><span class="en">Overhead DB Triceps Extension</span></div>
+            <div class="exercise-sets">
+              <span class="pill"><span class="pill-dot"></span>3 جولات</span>
+              <span class="pill"><span class="pill-dot"></span>12 تكرار</span>
+            </div>
+            <div class="exercise-desc">تراي بالدمبل خلف الرأس يدين</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /.bottom-row -->
+
+  <div class="divider"></div>
+
+  <!-- ══ FOOTER NOTE ═══════════════════════════════════════════ -->
+  <div class="footer-note">
+    <div class="footer-icon">💡</div>
+    <div class="footer-text">
+      <strong>ملاحظات هامة:</strong>
+      ابدأ كل جلسة بـ <strong>5–10 دقائق إحماء</strong> خفيف واحرص على الإطالة بعد الانتهاء.
+      الراحة بين الجولات: <strong>60–90 ثانية</strong> للتمارين الصغيرة، و<strong>2–3 دقائق</strong> للتمارين المركبة الثقيلة.
+      اختر وزناً يُتيح لك إتمام التكرارات بشكل صحيح مع الشعور بالإرهاق في آخر تكرارَين.
+      النوم الكافي والتغذية السليمة هما الركيزة الأساسية للنمو العضلي.
+    </div>
+  </div>
+
+  <!-- ══ BRAND FOOTER ══════════════════════════════════════════ -->
+  <div class="brand-footer">
+    <span>◆</span> نظام كمال أجسام احترافي · 5 أيام / الأسبوع · 6 تمارين / اليوم <span>◆</span>
+  </div>
+
+</div><!-- /.page -->
+</body>
+</html>
